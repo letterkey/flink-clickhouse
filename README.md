@@ -1,6 +1,14 @@
 # flink-clickhouse
 flink write/read data to clickhouse 
 
+
+### Version env
+| name | version    |
+|:----:|:-------:|
+| flink |1.9.*    |
+| clickhouse | 0.1.54 |
+| fastjson | 1.2.60 |
+
 1. flink clickhouse sink
 > support json str spec:java class or scala case class transform json str date
 ```scala

@@ -21,12 +21,14 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-scala_${scala.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-scala_${scala.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -39,6 +41,7 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.60</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -47,8 +50,6 @@
             <version>3.1.0-RC1</version>
             <scope>test</scope>
         </dependency>
-
-
 
     </dependencies>
 
