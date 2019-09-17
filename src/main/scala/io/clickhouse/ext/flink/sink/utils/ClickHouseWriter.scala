@@ -8,7 +8,8 @@ import ru.yandex.clickhouse.ClickHouseDataSource
 import scala.collection.mutable.ArrayBuffer
 
 /**
-  * Created by yinmuyang on 19-9-11 16:54.
+  * batch data inster into clickhouse
+  * Created by letterkey on 19-9-11 16:54.
   */
 class ClickHouseWriter(ds:ClickHouseDataSource,dbname:String,tablename:String,copy_data:ArrayBuffer[String]) extends Thread {
 
@@ -17,23 +18,25 @@ class ClickHouseWriter(ds:ClickHouseDataSource,dbname:String,tablename:String,co
    writer()
   }
 
-
-  def writer(): Unit ={
+  private[utils] def writer(): Unit ={
     using(ds.getConnection){conn =>
-      val columns = JSON.parseObject(copy_data.last,Feature.OrderedField).keySet().toArray().map(_.toString)
-      val insertStatementSql = generateInsertStatment(dbName = dbname,tableName=tablename,columns)
-      val statement = conn.prepareStatement(insertStatementSql)
+      if(!copy_data.isEmpty){
+        val columns = JSON.parseObject(copy_data.last,Feature.OrderedField).keySet().toArray().map(_.toString)
+        val insertStatementSql = generateInsertStatment(dbName = dbname,tableName=tablename,columns)
+        val statement = conn.prepareStatement(insertStatementSql)
 
-      copy_data.foreach(item =>{
-        val vals = JSON.parseObject(item,Feature.OrderedField).values().toArray()
-        for(i <- 0 until columns.size){
-          statement.setObject(i+1,vals(i))
-        }
-        statement.addBatch()
-      })
-      statement.executeBatch()
+        copy_data.foreach(item =>{
+          val vals = JSON.parseObject(item,Feature.OrderedField).values().toArray()
+          for(i <- 0 until columns.size){
+            statement.setObject(i+1,vals(i))
+          }
+          statement.addBatch()
+        })
+        statement.executeBatch()
+      }
     }
   }
+
   private[utils] def using[A, B <: {def close(): Unit}] (closeable: B) (f: B => A): A =
     try {
       f(closeable)

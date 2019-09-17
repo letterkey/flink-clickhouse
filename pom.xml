@@ -40,6 +40,16 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.60</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.12</artifactId>
+            <version>3.1.0-RC1</version>
+            <scope>test</scope>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>

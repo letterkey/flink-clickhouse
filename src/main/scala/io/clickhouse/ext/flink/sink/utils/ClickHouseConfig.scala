@@ -1,7 +1,7 @@
 package io.clickhouse.ext.flink.sink.utils
 
 /**
-  * Created by yinmuyang on 19-9-11 11:48.
+  * Created by letterkey on 19-9-11 11:48.
   */
 object ClickHouseConfig {
 
@@ -12,4 +12,6 @@ object ClickHouseConfig {
   val DATABASE = "clickhouse.dbname"
 
   val TABLENAME = "clickhouse.tablename"
+
+  val MAX_BUFFER_SIZE = "lcickhouse.sink.buffer.max.size"
 }
